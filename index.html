@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mesto</title>
+    <link rel="stylesheet" href="pages/index.css" />
+  </head>
+  <body class="root">
+    <section class="popup">
+      <form class="popup__form">
+        <h2 class="popup__form-name">Редактировать профиль</h2>
+        <div class="popup__form-texts">
+          <input
+            type="text"
+            id="form-profile-name"
+            name="name"
+            class="popup__form-text popup__profile-name"
+            title="Жак-Ив Кусто"
+            value="Жак-Ив Кусто"
+          />
+          <input
+            type="text"
+            id="form-profile-bio"
+            name="bio"
+            class="popup__form-text popup__profile-bio"
+            title="Исследователь океана"
+            value="Исследователь океана"
+          />
+        </div>
+        <input type="submit" value="Сохранить" class="popup__submit-btn" />
+        <button class="popup__close-btn"></button>
+      </form>
+    </section>
+    <header class="header">
+      <img src="images/logo.svg" alt="logo Mesto" class="header__logo" />
+    </header>
+    <section class="profile">
+      <img
+        src="images/avatar.png"
+        alt="аватар профиля"
+        class="profile__avatar"
+      />
+      <div class="profile__info">
+        <div class="profile__name-wrapper">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <button class="btn profile__edit-btn"></button>
+        </div>
+        <p class="profile__bio">Исследователь океана</p>
+      </div>
+      <button class="btn profile__add-btn"></button>
+    </section>
+    <ul class="elements">
+      <li class="elements__element">
+        <img
+          src="images/andrew_gazula_QfgiII9TWAk_unsplash-pBgsPzhs.jpg"
+          alt="image description"
+          class="elements__image"
+          loading="lazy"
+        />
+        <div class="elements__description">
+          <h2 class="elements__name">Карачаевск</h2>
+          <button class="btn elements__like"></button>
+        </div>
+      </li>
+      <li class="elements__element">
+        <img
+          src="images/barthelemy_de_mazenod_rbGpS_pm5Cw_unsplash-NvZrPzhs.jpg"
+          alt="image description"
+          class="elements__image"
+          loading="lazy"
+        />
+        <div class="elements__description">
+          <h2 class="elements__name">Москва</h2>
+          <button class="btn elements__like"></button>
+        </div>
+      </li>
+      <li class="elements__element">
+        <img
+          src="images/emilia_igartua_Z7bJWyz05Vg_unsplash-VjgsPzhs.jpg"
+          alt="image description"
+          class="elements__image"
+          loading="lazy"
+        />
+        <div class="elements__description">
+          <h2 class="elements__name">Большие большие города</h2>
+          <button class="btn elements__like"></button>
+        </div>
+      </li>
+      <li class="elements__element">
+        <img
+          src="images/john_cameron_9AXyLVpUyKU_unsplash-u5bsPzhs.jpg"
+          alt="image description"
+          class="elements__image"
+          loading="lazy"
+        />
+        <div class="elements__description">
+          <h2 class="elements__name">А это че!? ;|</h2>
+          <button class="btn elements__like"></button>
+        </div>
+      </li>
+      <li class="elements__element">
+        <img
+          src="images/kyle_frost_ulmmrqIJouw_unsplash-qIfsPzhs.jpg"
+          alt="image description"
+          class="elements__image"
+          loading="lazy"
+        />
+        <div class="elements__description">
+          <h2 class="elements__name">А тута че ммм?</h2>
+          <button class="btn elements__like"></button>
+        </div>
+      </li>
+      <li class="elements__element">
+        <img
+          src="images/rames_quinerie_FmlEsyC__xw_unsplash-pgbsPzhs.jpg"
+          alt="image description"
+          class="elements__image"
+          loading="lazy"
+        />
+        <div class="elements__description">
+          <h2 class="elements__name">Карачаево-Черкесия</h2>
+          <button class="btn elements__like"></button>
+        </div>
+      </li>
+    </ul>
+    <footer class="footer">
+      <p>&#169; 2020 Mesto Russia</p>
+    </footer>
+  </body>
+  <script src="scripts/script.js"></script>
+</html>
