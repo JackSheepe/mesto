@@ -1,16 +1,17 @@
 let editBtn = document.querySelector(".profile__edit-btn");
 let popup = document.querySelector(".popup");
+
 function doOpenPopup() {
   popup.classList.add("popup_opened");
 }
 editBtn.addEventListener("click", doOpenPopup);
 
-let popupCloseIcon = document.querySelector(".popup__close-btn");
+let popupCloseBtn = document.querySelector(".popup__close-btn");
 function doClosePopup() {
   popup.classList.remove("popup_opened");
 }
 
-popupCloseIcon.addEventListener("click", doClosePopup);
+popupCloseBtn.addEventListener("click", doClosePopup);
 
 // Находим форму в DOM
 let formElement = document.querySelector(".popup__form");
