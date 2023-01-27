@@ -12,4 +12,10 @@
   cursor: pointer;
   padding: 14px 0 18px;
   border-radius: 2px;
+  box-sizing: border-box;
+  transition: 300ms ease-in-out;
+}
+
+.popup__submit-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }

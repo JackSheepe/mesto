@@ -6,6 +6,7 @@
   border-radius: 0;
   border: 2px solid white;
   margin-left: auto;
+  box-sizing: border-box;
 }
 
 @media (max-width: 856px) {
