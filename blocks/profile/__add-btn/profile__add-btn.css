@@ -7,11 +7,13 @@
   border: 2px solid white;
   margin-left: auto;
   box-sizing: border-box;
+  border-radius: 2px;
 }
 
 @media (max-width: 856px) {
   .profile__add-btn {
     width: 100%;
+    background-size: 16px;
     margin-top: 35px;
   }
 }

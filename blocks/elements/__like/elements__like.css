@@ -6,4 +6,9 @@
   border-radius: 0;
   border: none;
   margin-left: auto;
+  transition: 300ms ease-in-out;
+}
+
+.elements__like:hover {
+  background-color: rgba(0, 0, 0, 0.5);
 }

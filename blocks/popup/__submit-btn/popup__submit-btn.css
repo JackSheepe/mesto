@@ -1,13 +1,12 @@
 .popup__submit-btn {
   display: flex;
-  width: 358px;
-  height: 50px;
   background-color: black;
   color: white;
   justify-content: center;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
+  border: none;
   text-align: center;
   cursor: pointer;
   padding: 14px 0 18px;
@@ -18,4 +17,12 @@
 
 .popup__submit-btn:hover {
   background-color: rgba(0, 0, 0, 0.8);
+}
+
+@media (max-width: 700px) {
+  .popup__submit-btn {
+    font-size: 14px;
+    line-height: 17px;
+    padding: 14px 0 15px;
+  }
 }
