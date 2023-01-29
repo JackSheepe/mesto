@@ -11,11 +11,16 @@
   margin-top: 7px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 856px) {
+  .profile__bio {
+    align-self: center;
+  }
+}
+
+@media (max-width: 500px) {
   .profile__bio {
     max-width: 220px;
     font-size: 14px;
     line-height: 17px;
-    align-self: center;
   }
 }
