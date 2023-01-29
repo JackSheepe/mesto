@@ -15,8 +15,6 @@ function doOpenPopup() {
   popup.classList.add("popup_opened");
   nameInput.value = profileName.textContent;
   bioInput.value = profileBio.textContent;
-  nameInput.title = profileName.textContent;
-  bioInput.title = profileBio.textContent;
 }
 
 function doClosePopup() {
