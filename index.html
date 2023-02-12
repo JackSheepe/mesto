@@ -42,9 +42,9 @@
     <footer class="footer">
       <p>&#169; 2020 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup" id="edit-popup">
       <div class="popup__container">
-        <form class="popup__form" name="edit-form">
+        <form class="popup__form" name="edit-form" id="edit-form">
           <h2 class="popup__form-name">Редактировать профиль</h2>
           <div class="popup__form-texts">
             <input
@@ -74,6 +74,46 @@
           </button>
           <button
             class="btn popup__close-btn"
+            id="edit-close-btn"
+            type="button"
+            aria-label="Кнопка закрытия попапа"
+          ></button>
+        </form>
+      </div>
+    </div>
+    <div class="popup" id="card-popup">
+      <div class="popup__container">
+        <form class="popup__form" name="card-form" id="card-form">
+          <h2 class="popup__form-name">Новое место</h2>
+          <div class="popup__form-texts">
+            <input
+              type="text"
+              id="card-name-field"
+              name="name"
+              class="popup__form-text"
+              value=""
+              placeholder="Название"
+            />
+            <input
+              type="text"
+              id="link-field"
+              name="link"
+              class="popup__form-text"
+              value=""
+              placeholder="Ссылка на картинку"
+            />
+          </div>
+          <button
+            type="submit"
+            value="Создать"
+            class="popup__submit-btn"
+            aria-label="Кнопка создать фото-карточку"
+          >
+            Создать
+          </button>
+          <button
+            class="btn popup__close-btn"
+            id="card-close-btn"
             type="button"
             aria-label="Кнопка закрытия попапа"
           ></button>
@@ -96,6 +136,11 @@
             aria-label="Кнопка лайка"
           ></button>
         </div>
+        <button
+          class="elements__delete"
+          type="button"
+          aria-label="Кнопка удаления карточки"
+        ></button>
       </li>
     </template>
     <script src="scripts/index.js"></script>

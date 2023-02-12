@@ -1,12 +1,18 @@
 let btnEdit = document.querySelector(".profile__edit-btn");
-let popup = document.querySelector(".popup");
-let btnPopupClose = document.querySelector(".popup__close-btn");
+let btnAdd = document.querySelector(".profile__add-btn");
+let editPopup = document.querySelector("#edit-popup");
+let cardPopup = document.querySelector("#card-popup");
+let btnEditPopupClose = document.querySelector("#edit-close-btn");
+let btnCardPopupClose = document.querySelector("#card-close-btn");
 
 // Находим форму в DOM
-let formElement = document.querySelector(".popup__form");
+let editForm = document.querySelector("#edit-form");
+let cardForm = document.querySelector("#card-form");
 // Находим поля формы в DOM
-let nameInput = document.querySelector("#name-field");
-let bioInput = document.querySelector("#bio-field");
+let nameInput = editForm.querySelector("#name-field");
+let bioInput = editForm.querySelector("#bio-field");
+let cardNameInput = cardForm.querySelector("#card-name-field");
+let linkInput = cardForm.querySelector("#link-field");
 
 let profileName = document.querySelector(".profile__name"); // Выберите элементы, куда должны быть вставлены значения полей
 let profileBio = document.querySelector(".profile__bio");
@@ -42,19 +48,21 @@ const initialCards = [
   },
 ];
 
-function doOpenPopup() {
+function doOpenPopup(popup) {
   popup.classList.add("popup_opened");
-  nameInput.value = profileName.textContent;
-  bioInput.value = profileBio.textContent;
+  if (popup.id === "edit-popup") {
+    nameInput.value = profileName.textContent;
+    bioInput.value = profileBio.textContent;
+  }
 }
 
-function doClosePopup() {
+function doClosePopup(popup) {
   popup.classList.remove("popup_opened");
 }
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
-function handleFormSubmit(evt) {
+function handleEditFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   // Так мы можем определить свою логику отправки.
   // О том, как это делать, расскажем позже.
@@ -62,21 +70,49 @@ function handleFormSubmit(evt) {
   profileName.textContent = nameInput.value;
   profileBio.textContent = bioInput.value; // Вставьте новые значения с помощью textContent
 
-  doClosePopup();
+  doClosePopup(editPopup);
 }
 
-btnEdit.addEventListener("click", doOpenPopup);
-btnPopupClose.addEventListener("click", doClosePopup);
+function handleAddFormSubmit(evt) {
+  evt.preventDefault();
+
+  let el = {
+    name: cardNameInput.value,
+    link: linkInput.value,
+  };
+
+  initialCards.unshift(el);
+  addPhotoCard(el);
+
+  doClosePopup(cardPopup);
+}
+
+btnEdit.addEventListener("click", () => doOpenPopup(editPopup));
+btnEditPopupClose.addEventListener("click", () => doClosePopup(editPopup));
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
-formElement.addEventListener("submit", handleFormSubmit);
+editForm.addEventListener("submit", handleEditFormSubmit);
 
-initialCards.forEach((item) => {
+btnAdd.addEventListener("click", () => doOpenPopup(cardPopup));
+btnCardPopupClose.addEventListener("click", () => doClosePopup(cardPopup));
+cardForm.addEventListener("submit", handleAddFormSubmit);
+
+function addPhotoCard(item) {
   const photoCard = photoCardTemplate
     .querySelector(".elements__element")
     .cloneNode(true);
   photoCard.querySelector(".elements__name").textContent = item.name;
   photoCard.querySelector(".elements__image").src = item.link;
   photoCard.querySelector(".elements__image").alt = item.name;
-  photoCardContainer.append(photoCard);
-});
+  photoCard
+    .querySelector(".elements__like")
+    .addEventListener("click", (evt) => {
+      evt.target.classList.toggle("elements__like_active");
+    });
+  photoCard.querySelector(".elements__delete").addEventListener("click", () => {
+    photoCard.remove();
+  });
+  photoCardContainer.prepend(photoCard);
+}
+
+initialCards.forEach(addPhotoCard);
