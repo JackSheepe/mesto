@@ -1,5 +1,6 @@
 const btnEditProfile = document.querySelector(".profile__edit-btn");
 const btnAddCard = document.querySelector(".profile__add-btn");
+const popups = document.querySelectorAll(".popup");
 const popupEdit = document.querySelector("#edit-popup");
 const cardPopup = document.querySelector("#card-popup");
 const imgPopup = document.querySelector("#image-popup");
@@ -53,16 +54,29 @@ const initialCards = [
   },
 ];
 
+function keyHandler(evt) {
+  if (evt.key === "Escape") {
+    const popup = document.querySelector(".popup_opened");
+    doClosePopup(popup);
+  }
+}
+
+function mouseHandler(evt) {
+  if (evt.target === evt.currentTarget) {
+    doClosePopup(evt.currentTarget);
+  }
+}
+
 function doOpenPopup(popup) {
   popup.classList.add("popup_opened");
-  if (popup.id === "edit-popup") {
-    nameInput.value = profileName.textContent;
-    bioInput.value = profileBio.textContent;
-  }
+  popup.setAttribute("tabindex", "0");
+  popup.addEventListener("keydown", keyHandler);
 }
 
 function doClosePopup(popup) {
   popup.classList.remove("popup_opened");
+  popup.removeAttribute("tabindex", "0");
+  popup.removeEventListener("keydown", keyHandler);
 }
 
 function openPropfilePopup() {
@@ -101,6 +115,8 @@ btnEditProfile.addEventListener("click", openPropfilePopup);
 btnPopupEditClose.addEventListener("click", () => doClosePopup(popupEdit));
 btnCardPopupClose.addEventListener("click", () => doClosePopup(cardPopup));
 btnImgPopupClose.addEventListener("click", () => doClosePopup(imgPopup));
+popups.forEach((popup) => popup.addEventListener("click", mouseHandler));
+
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formEdit.addEventListener("submit", handleformEditSubmit);
