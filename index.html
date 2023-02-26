@@ -47,28 +47,34 @@
         <form class="popup__form" name="edit-form" id="edit-form">
           <h2 class="popup__form-name">Редактировать профиль</h2>
           <div class="popup__form-texts">
-            <input
-              type="text"
-              id="name-field"
-              name="name"
-              class="popup__form-text"
-              title="Жак-Ив Кусто"
-              value=""
-              minlength="2"
-              maxlength="40"
-              required
-            />
-            <input
-              type="text"
-              id="bio-field"
-              name="bio"
-              class="popup__form-text"
-              title="Исследователь океана"
-              value=""
-              minlength="2"
-              maxlength="200"
-              required
-            />
+            <label class="popup__form-label">
+              <input
+                type="text"
+                id="name-field"
+                name="name"
+                class="popup__form-text"
+                title="Жак-Ив Кусто"
+                value=""
+                minlength="2"
+                maxlength="40"
+                required
+              />
+              <span class="popup__form-text-error" id="name-field-error"></span>
+            </label>
+            <label class="popup__form-label">
+              <input
+                type="text"
+                id="bio-field"
+                name="bio"
+                class="popup__form-text"
+                title="Исследователь океана"
+                value=""
+                minlength="2"
+                maxlength="200"
+                required
+              />
+              <span class="popup__form-text-error" id="bio-field-error"></span>
+            </label>
           </div>
           <button
             type="submit"
@@ -92,24 +98,35 @@
         <form class="popup__form" name="card-form" id="card-form">
           <h2 class="popup__form-name">Новое место</h2>
           <div class="popup__form-texts">
-            <input
-              type="text"
-              id="card-name-field"
-              name="name"
-              class="popup__form-text"
-              value=""
-              placeholder="Название"
-              required
-            />
-            <input
-              type="url"
-              id="link-field"
-              name="link"
-              class="popup__form-text"
-              value=""
-              placeholder="Ссылка на картинку"
-              required
-            />
+            <label class="popup__form-label">
+              <input
+                type="text"
+                id="card-name-field"
+                name="name"
+                class="popup__form-text"
+                value=""
+                placeholder="Название"
+                minlength="2"
+                maxlength="30"
+                required
+              />
+              <span
+                class="popup__form-text-error"
+                id="card-name-field-error"
+              ></span>
+            </label>
+            <label class="popup__form-label">
+              <input
+                type="url"
+                id="link-field"
+                name="link"
+                class="popup__form-text"
+                value=""
+                placeholder="Ссылка на картинку"
+                required
+              />
+              <span class="popup__form-text-error" id="link-field-error"></span>
+            </label>
           </div>
           <button
             type="submit"
@@ -164,5 +181,6 @@
       </li>
     </template>
     <script src="scripts/index.js"></script>
+    <script src="scripts/validation.js"></script>
   </body>
 </html>
