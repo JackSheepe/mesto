@@ -16,6 +16,11 @@ const hideInputError = (formElement, inputElement) => {
 const adjustPopupHeight = (errorElement) => {
   if (errorElement.scrollHeight > 30) {
     errorElement.parentElement.classList.add("popup__form-label_adaptive");
+  } else if (
+    errorElement.scrollHeight <= 30 &&
+    errorElement.parentElement.classList.contains("popup__form-label_adaptive")
+  ) {
+    errorElement.parentElement.classList.remove("popup__form-label_adaptive");
   }
 };
 
