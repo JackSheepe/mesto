@@ -83,6 +83,7 @@ function openPropfilePopup() {
   nameInput.value = profileName.textContent;
   bioInput.value = profileBio.textContent;
   doOpenPopup(popupEdit);
+  enableValidation();
 }
 
 // Обработчик «отправки» формы, хотя пока

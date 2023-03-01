@@ -1,0 +1,3 @@
+.popup__form-label_adaptive {
+  grid-template-rows: min-content min-content;
+}

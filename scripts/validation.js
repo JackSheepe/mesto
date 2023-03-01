@@ -3,6 +3,7 @@ const showInputError = (formElement, inputElement, errorMessage) => {
   inputElement.classList.add("popup__form-text_invalid");
   errorElement.textContent = errorMessage;
   errorElement.classList.add("popup__form-text-error_active");
+  adjustPopupHeight(errorElement);
 };
 
 const hideInputError = (formElement, inputElement) => {
@@ -10,6 +11,12 @@ const hideInputError = (formElement, inputElement) => {
   inputElement.classList.remove("popup__form-text_invalid");
   errorElement.classList.remove("popup__form-text-error_active");
   errorElement.textContent = "";
+};
+
+const adjustPopupHeight = (errorElement) => {
+  if (errorElement.scrollHeight > 30) {
+    errorElement.parentElement.classList.add("popup__form-label_adaptive");
+  }
 };
 
 const checkInputValidity = (formElement, inputElement) => {
