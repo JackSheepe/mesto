@@ -1,8 +1,7 @@
 .popup__form-texts {
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  margin-bottom: 48px;
+  margin-bottom: 18px;
 }
 
 @media (max-width: 700px) {
