@@ -3,7 +3,6 @@ const showInputError = (formElement, inputElement, errorMessage, obj) => {
   inputElement.classList.add(obj.inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(obj.errorClass);
-  adjustPopupHeight(errorElement);
 };
 
 const hideInputError = (formElement, inputElement, obj) => {
@@ -29,8 +28,10 @@ const checkInputValidity = (formElement, inputElement, obj) => {
 const toggleButtonState = (inputList, buttonElement, obj) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(obj.inactiveButtonClass);
+    buttonElement.setAttribute("disabled", true);
   } else {
     buttonElement.classList.remove(obj.inactiveButtonClass);
+    buttonElement.removeAttribute("disabled", true);
   }
 };
 
@@ -66,11 +67,13 @@ const enableValidation = (obj) => {
   });
 };
 
-enableValidation({
+const objValidationClasses = {
   formSelector: ".popup__form",
   inputSelector: ".popup__form-text",
   submitButtonSelector: ".popup__submit-btn",
   inactiveButtonClass: "popup__submit-btn_disabled",
   inputErrorClass: "popup__form-text_invalid",
   errorClass: "popup__form-text-error_active",
-});
+};
+
+enableValidation(objValidationClasses);

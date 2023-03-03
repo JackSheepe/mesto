@@ -17,12 +17,6 @@ const bioInput = formEdit.querySelector("#bio-field");
 const cardNameInput = formCard.querySelector("#card-name-field");
 const linkInput = formCard.querySelector("#link-field");
 
-const inputSubmitObj = {
-  inputSelector: ".popup__form-text",
-  submitButtonSelector: ".popup__submit-btn",
-  inactiveButtonClass: "popup__submit-btn_disabled",
-};
-
 const profileName = document.querySelector(".profile__name"); // Выберите элементы, куда должны быть вставлены значения полей
 const profileBio = document.querySelector(".profile__bio");
 const imgPopupSrc = document.querySelector(".popup__img");
@@ -73,16 +67,7 @@ function mouseHandler(evt) {
   }
 }
 
-function checkIsItInput(popup, obj) {
-  if (!popup.classList.contains("popup_image")) {
-    const inputList = Array.from(popup.querySelectorAll(obj.inputSelector));
-    const buttonElement = popup.querySelector(obj.submitButtonSelector);
-    toggleButtonState(inputList, buttonElement, obj);
-  }
-}
-
-function doOpenPopup(popup, obj) {
-  checkIsItInput(popup, obj);
+function doOpenPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", keyHandler);
 }
@@ -92,10 +77,11 @@ function doClosePopup(popup) {
   document.removeEventListener("keydown", keyHandler);
 }
 
-function openPropfilePopup(obj) {
+function openPropfilePopup() {
   nameInput.value = profileName.textContent;
   bioInput.value = profileBio.textContent;
-  doOpenPopup(popupEdit, obj);
+  setEventListeners(popupEdit, objValidationClasses);
+  doOpenPopup(popupEdit);
 }
 
 // Обработчик «отправки» формы, хотя пока
@@ -120,13 +106,13 @@ function handleAddFormSubmit(evt) {
   };
 
   renderCard(el);
-
+  cardNameInput.value = "";
+  linkInput.value = "";
   doClosePopup(cardPopup);
+  setEventListeners(cardPopup, objValidationClasses);
 }
 
-btnEditProfile.addEventListener("click", () =>
-  openPropfilePopup(inputSubmitObj)
-);
+btnEditProfile.addEventListener("click", openPropfilePopup);
 btnPopupEditClose.addEventListener("click", () => doClosePopup(popupEdit));
 btnCardPopupClose.addEventListener("click", () => doClosePopup(cardPopup));
 btnImgPopupClose.addEventListener("click", () => doClosePopup(imgPopup));
@@ -136,9 +122,7 @@ popups.forEach((popup) => popup.addEventListener("click", mouseHandler));
 // он будет следить за событием “submit” - «отправка»
 formEdit.addEventListener("submit", handleformEditSubmit);
 
-btnAddCard.addEventListener("click", () =>
-  doOpenPopup(cardPopup, inputSubmitObj)
-);
+btnAddCard.addEventListener("click", () => doOpenPopup(cardPopup));
 formCard.addEventListener("submit", handleAddFormSubmit);
 
 function createCard(card) {
@@ -154,7 +138,7 @@ function createCard(card) {
     newCard.remove();
   });
   img.addEventListener("click", (evt) => {
-    doOpenPopup(imgPopup, inputSubmitObj);
+    doOpenPopup(imgPopup);
     imgPopupSrc.src = evt.target.src;
     imgPopupSrc.alt = evt.target.alt;
     imgPopupDescription.textContent =
