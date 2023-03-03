@@ -77,10 +77,14 @@ function doClosePopup(popup) {
   document.removeEventListener("keydown", keyHandler);
 }
 
-function openPropfilePopup() {
+function openPropfilePopup(obj) {
   nameInput.value = profileName.textContent;
   bioInput.value = profileBio.textContent;
-  setEventListeners(popupEdit, objValidationClasses);
+
+  const buttonElement = popupEdit.querySelector(obj.submitButtonSelector);
+
+  enableSubmitButton(obj, buttonElement);
+
   doOpenPopup(popupEdit);
 }
 
@@ -109,10 +113,17 @@ function handleAddFormSubmit(evt) {
   cardNameInput.value = "";
   linkInput.value = "";
   doClosePopup(cardPopup);
-  setEventListeners(cardPopup, objValidationClasses);
+
+  const buttonElement = cardPopup.querySelector(
+    objValidationClasses.submitButtonSelector
+  );
+
+  disableSubmitButton(objValidationClasses, buttonElement);
 }
 
-btnEditProfile.addEventListener("click", openPropfilePopup);
+btnEditProfile.addEventListener("click", () =>
+  openPropfilePopup(objValidationClasses)
+);
 btnPopupEditClose.addEventListener("click", () => doClosePopup(popupEdit));
 btnCardPopupClose.addEventListener("click", () => doClosePopup(cardPopup));
 btnImgPopupClose.addEventListener("click", () => doClosePopup(imgPopup));

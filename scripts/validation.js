@@ -25,13 +25,21 @@ const checkInputValidity = (formElement, inputElement, obj) => {
   }
 };
 
+const enableSubmitButton = (obj, buttonElement) => {
+  buttonElement.classList.remove(obj.inactiveButtonClass);
+  buttonElement.removeAttribute("disabled", true);
+};
+
+const disableSubmitButton = (obj, buttonElement) => {
+  buttonElement.classList.add(obj.inactiveButtonClass);
+  buttonElement.setAttribute("disabled", true);
+};
+
 const toggleButtonState = (inputList, buttonElement, obj) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(obj.inactiveButtonClass);
-    buttonElement.setAttribute("disabled", true);
+    disableSubmitButton(obj, buttonElement);
   } else {
-    buttonElement.classList.remove(obj.inactiveButtonClass);
-    buttonElement.removeAttribute("disabled", true);
+    enableSubmitButton(obj, buttonElement);
   }
 };
 
