@@ -1,3 +1,6 @@
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+
 const btnEditProfile = document.querySelector(".profile__edit-btn");
 const btnAddCard = document.querySelector(".profile__add-btn");
 const popups = document.querySelectorAll(".popup");
@@ -19,13 +22,19 @@ const linkInput = formCard.querySelector("#link-field");
 
 const profileName = document.querySelector(".profile__name"); // Выберите элементы, куда должны быть вставлены значения полей
 const profileBio = document.querySelector(".profile__bio");
-const imgPopupSrc = document.querySelector(".popup__img");
-const imgPopupDescription = document.querySelector(".popup__img-description");
 
-// Фото-карточка
+// Контейнер фото карточки
 const photoCardContainer = document.querySelector(".elements");
-const photoCardTemplate = document.querySelector("#photo-card").content;
-const photoCard = photoCardTemplate.querySelector(".elements__element");
+
+// Классы и селекторы валидации
+const objValidationClasses = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__form-text",
+  submitButtonSelector: ".popup__submit-btn",
+  inactiveButtonClass: "popup__submit-btn_disabled",
+  inputErrorClass: "popup__form-text_invalid",
+  errorClass: "popup__form-text-error_active",
+};
 
 const initialCards = [
   {
@@ -83,7 +92,8 @@ function openPropfilePopup(obj) {
 
   const buttonElement = popupEdit.querySelector(obj.submitButtonSelector);
 
-  enableSubmitButton(obj, buttonElement);
+  const Form = new FormValidator(objValidationClasses, formEdit);
+  Form._enableSubmitButton(buttonElement);
 
   doOpenPopup(popupEdit);
 }
@@ -118,7 +128,8 @@ function handleAddFormSubmit(evt) {
     objValidationClasses.submitButtonSelector
   );
 
-  disableSubmitButton(objValidationClasses, buttonElement);
+  const Form = new FormValidator(objValidationClasses, formCard);
+  Form._disableSubmitButton(buttonElement);
 }
 
 btnEditProfile.addEventListener("click", () =>
@@ -136,31 +147,18 @@ formEdit.addEventListener("submit", handleformEditSubmit);
 btnAddCard.addEventListener("click", () => doOpenPopup(cardPopup));
 formCard.addEventListener("submit", handleAddFormSubmit);
 
-function createCard(card) {
-  const newCard = photoCard.cloneNode(true);
-  const img = newCard.querySelector(".elements__image");
-  newCard.querySelector(".elements__name").textContent = card.name;
-  img.src = card.link;
-  img.alt = card.name;
-  newCard.querySelector(".elements__like").addEventListener("click", (evt) => {
-    evt.target.classList.toggle("elements__like_active");
-  });
-  newCard.querySelector(".elements__delete").addEventListener("click", () => {
-    newCard.remove();
-  });
-  img.addEventListener("click", (evt) => {
-    doOpenPopup(imgPopup);
-    imgPopupSrc.src = evt.target.src;
-    imgPopupSrc.alt = evt.target.alt;
-    imgPopupDescription.textContent =
-      newCard.querySelector(".elements__name").textContent;
-  });
-
-  return newCard;
-}
-
 function renderCard(card) {
-  photoCardContainer.prepend(createCard(card));
+  const newCard = new Card(card, "#photo-card");
+  const cardElement = newCard.createCard();
+  photoCardContainer.prepend(cardElement);
 }
 
 initialCards.forEach(renderCard);
+
+function validateForm(form) {
+  const Form = new FormValidator(objValidationClasses, form);
+  Form.enableValidation();
+}
+
+validateForm(formCard);
+validateForm(formEdit);
