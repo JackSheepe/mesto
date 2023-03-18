@@ -6,7 +6,7 @@ const btnAddCard = document.querySelector(".profile__add-btn");
 const popups = document.querySelectorAll(".popup");
 const popupEdit = document.querySelector("#edit-popup");
 const cardPopup = document.querySelector("#card-popup");
-const imgPopup = document.querySelector("#image-popup");
+export const imgPopup = document.querySelector("#image-popup");
 const btnPopupEditClose = document.querySelector("#edit-close-btn");
 const btnCardPopupClose = document.querySelector("#card-close-btn");
 const btnImgPopupClose = document.querySelector("#img-close-btn");
@@ -35,6 +35,12 @@ const objValidationClasses = {
   inputErrorClass: "popup__form-text_invalid",
   errorClass: "popup__form-text-error_active",
 };
+
+//
+const formEditValidity = new FormValidator(objValidationClasses, formEdit);
+formEditValidity.enableValidation();
+const formCardValidity = new FormValidator(objValidationClasses, formCard);
+formCardValidity.enableValidation();
 
 const initialCards = [
   {
@@ -76,7 +82,7 @@ function mouseHandler(evt) {
   }
 }
 
-function doOpenPopup(popup) {
+export function doOpenPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", keyHandler);
 }
@@ -90,10 +96,7 @@ function openPropfilePopup(obj) {
   nameInput.value = profileName.textContent;
   bioInput.value = profileBio.textContent;
 
-  const buttonElement = popupEdit.querySelector(obj.submitButtonSelector);
-
-  const Form = new FormValidator(objValidationClasses, formEdit);
-  Form._enableSubmitButton(buttonElement);
+  formEditValidity.enableSubmitButton();
 
   doOpenPopup(popupEdit);
 }
@@ -124,12 +127,7 @@ function handleAddFormSubmit(evt) {
   linkInput.value = "";
   doClosePopup(cardPopup);
 
-  const buttonElement = cardPopup.querySelector(
-    objValidationClasses.submitButtonSelector
-  );
-
-  const Form = new FormValidator(objValidationClasses, formCard);
-  Form._disableSubmitButton(buttonElement);
+  formCardValidity.disableSubmitButton();
 }
 
 btnEditProfile.addEventListener("click", () =>
@@ -154,11 +152,3 @@ function renderCard(card) {
 }
 
 initialCards.forEach(renderCard);
-
-function validateForm(form) {
-  const Form = new FormValidator(objValidationClasses, form);
-  Form.enableValidation();
-}
-
-validateForm(formCard);
-validateForm(formEdit);

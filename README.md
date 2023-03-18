@@ -14,3 +14,4 @@ https://jacksheepe.github.io/mesto/
 - Figma
 - JavaScript
 - unsplash
+- ООП
