@@ -5,16 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mesto</title>
-    <link rel="stylesheet" href="pages/index.css" />
   </head>
   <body class="root">
     <header class="header">
-      <img src="images/logo.svg" alt="Лого Место" class="header__logo" />
+      <img
+        src="<%=require('./images/logo.svg')%>"
+        alt="Лого Место"
+        class="header__logo"
+      />
     </header>
     <main>
       <section class="profile">
         <img
-          src="images/avatar.png"
+          src="<%=require('./images/avatar.png')%>"
           alt="аватар профиля"
           class="profile__avatar"
         />
@@ -147,7 +150,11 @@
     </div>
     <div class="popup popup_image" id="image-popup">
       <div class="popup__img-container">
-        <img src="images/like.svg" alt="" class="popup__img" />
+        <img
+          src="<%=require('./images/like.svg')%>"
+          alt=""
+          class="popup__img"
+        />
         <p class="popup__img-description"></p>
         <button
           class="btn popup__close-btn"
@@ -160,7 +167,7 @@
     <template id="photo-card">
       <li class="elements__element">
         <img
-          src="images/andrew_gazula_QfgiII9TWAk_unsplash-pBgsPzhs.jpg"
+          src="<%=require('./images/andrew_gazula_QfgiII9TWAk_unsplash-pBgsPzhs.jpg')%>"
           alt="Карачаевск"
           class="elements__image"
           loading="lazy"
@@ -180,14 +187,5 @@
         ></button>
       </li>
     </template>
-    <script type="module" src="scripts/index.js"></script>
-    <script type="module" src="scripts/FormValidator.js"></script>
-    <script type="module" src="scripts/Card.js"></script>
-    <script type="module" src="scripts/constants.js"></script>
-    <script type="module" src="scripts/Popup.js"></script>
-    <script type="module" src="scripts/PopupWithForm.js"></script>
-    <script type="module" src="scripts/PopupWithImage.js"></script>
-    <script type="module" src="scripts/Section.js"></script>
-    <script type="module" src="scripts/UserInfo.js"></script>
   </body>
 </html>

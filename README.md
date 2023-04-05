@@ -15,3 +15,5 @@ https://jacksheepe.github.io/mesto/
 - JavaScript
 - unsplash
 - ООП
+- webpack
+- bebel
