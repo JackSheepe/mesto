@@ -1,154 +1,110 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
+import Popup from "./Popup.js";
+import PopupWithForm from "./PopupWithForm.js";
+import PopupWithImage from "./PopupWithImage.js";
+import Section from "./Section.js";
+import UserInfo from "./UserInfo.js";
+import {
+  objValidationClasses,
+  initialCards,
+  btnEditProfile,
+  btnAddCard,
+} from "./constants.js";
 
-const btnEditProfile = document.querySelector(".profile__edit-btn");
-const btnAddCard = document.querySelector(".profile__add-btn");
-const popups = document.querySelectorAll(".popup");
-const popupEdit = document.querySelector("#edit-popup");
-const cardPopup = document.querySelector("#card-popup");
-export const imgPopup = document.querySelector("#image-popup");
-const btnPopupEditClose = document.querySelector("#edit-close-btn");
-const btnCardPopupClose = document.querySelector("#card-close-btn");
-const btnImgPopupClose = document.querySelector("#img-close-btn");
+const user = new UserInfo(".profile__name", ".profile__bio");
 
-// Находим форму в DOM
-const formEdit = document.querySelector("#edit-form");
-const formCard = document.querySelector("#card-form");
-// Находим поля формы в DOM
-const nameInput = formEdit.querySelector("#name-field");
-const bioInput = formEdit.querySelector("#bio-field");
-const cardNameInput = formCard.querySelector("#card-name-field");
-const linkInput = formCard.querySelector("#link-field");
+const formEdit = new PopupWithForm(
+  {
+    submitCallback: (evt) => {
+      evt.preventDefault();
 
-const profileName = document.querySelector(".profile__name"); // Выберите элементы, куда должны быть вставлены значения полей
-const profileBio = document.querySelector(".profile__bio");
+      formEditValidity.disableSubmitButton();
 
-// Контейнер фото карточки
-const photoCardContainer = document.querySelector(".elements");
+      user.setUserInfo({
+        name: formEdit._getInputValues()[0],
+        bio: formEdit._getInputValues()[1],
+      });
+      console.log(formEdit._getInputValues()[0]);
+      formEdit.close();
+    },
+  },
+  "#edit-popup"
+);
 
-// Классы и селекторы валидации
-const objValidationClasses = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__form-text",
-  submitButtonSelector: ".popup__submit-btn",
-  inactiveButtonClass: "popup__submit-btn_disabled",
-  inputErrorClass: "popup__form-text_invalid",
-  errorClass: "popup__form-text-error_active",
-};
+const formCard = new PopupWithForm(
+  {
+    submitCallback: (evt) => {
+      evt.preventDefault();
 
-//
-const formEditValidity = new FormValidator(objValidationClasses, formEdit);
+      formCardValidity.disableSubmitButton();
+
+      const el = {
+        name: formCard._getInputValues()[0],
+        link: formCard._getInputValues()[1],
+      };
+
+      const newCard = new Card(
+        {
+          data: el,
+          handleCardClick: () => {
+            const popup = new PopupWithImage({ data: item }, "#image-popup");
+            popup.open();
+          },
+        },
+        "#photo-card"
+      );
+      const cardElement = newCard.createCard();
+      cardsSection.addItem(cardElement);
+      console.log(el);
+
+      formCard.close();
+    },
+  },
+  "#card-popup"
+);
+
+btnEditProfile.addEventListener("click", () => {
+  formEdit.open();
+  formEdit._inputs[0].value = user.getUserInfo().name;
+  formEdit._inputs[1].value = user.getUserInfo().bio;
+  formEditValidity.enableSubmitButton();
+});
+
+btnAddCard.addEventListener("click", () => {
+  formCard.open();
+});
+
+const formEditValidity = new FormValidator(
+  objValidationClasses,
+  formEdit._form
+);
 formEditValidity.enableValidation();
-const formCardValidity = new FormValidator(objValidationClasses, formCard);
+const formCardValidity = new FormValidator(
+  objValidationClasses,
+  formCard._form
+);
 formCardValidity.enableValidation();
 
-const initialCards = [
+const cardsSection = new Section(
   {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+    items: initialCards,
+    renderer: (item) => {
+      const newCard = new Card(
+        {
+          data: item,
+          handleCardClick: () => {
+            const popup = new PopupWithImage({ data: item }, "#image-popup");
+            popup.open();
+          },
+        },
+        "#photo-card"
+      );
+      const cardElement = newCard.createCard();
+      cardsSection.addItem(cardElement);
+    },
   },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-
-function keyHandler(evt) {
-  if (evt.key === "Escape") {
-    const popup = document.querySelector(".popup_opened");
-    doClosePopup(popup);
-  }
-}
-
-function mouseHandler(evt) {
-  if (evt.target === evt.currentTarget) {
-    doClosePopup(evt.currentTarget);
-  }
-}
-
-export function doOpenPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", keyHandler);
-}
-
-function doClosePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", keyHandler);
-}
-
-function openPropfilePopup(obj) {
-  nameInput.value = profileName.textContent;
-  bioInput.value = profileBio.textContent;
-
-  formEditValidity.enableSubmitButton();
-
-  doOpenPopup(popupEdit);
-}
-
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
-function handleformEditSubmit(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  // Так мы можем определить свою логику отправки.
-  // О том, как это делать, расскажем позже.
-
-  profileName.textContent = nameInput.value;
-  profileBio.textContent = bioInput.value; // Вставьте новые значения с помощью textContent
-
-  doClosePopup(popupEdit);
-}
-
-function handleAddFormSubmit(evt) {
-  evt.preventDefault();
-
-  const el = {
-    name: cardNameInput.value,
-    link: linkInput.value,
-  };
-
-  renderCard(el);
-  cardNameInput.value = "";
-  linkInput.value = "";
-  doClosePopup(cardPopup);
-
-  formCardValidity.disableSubmitButton();
-}
-
-btnEditProfile.addEventListener("click", () =>
-  openPropfilePopup(objValidationClasses)
+  ".elements"
 );
-btnPopupEditClose.addEventListener("click", () => doClosePopup(popupEdit));
-btnCardPopupClose.addEventListener("click", () => doClosePopup(cardPopup));
-btnImgPopupClose.addEventListener("click", () => doClosePopup(imgPopup));
-popups.forEach((popup) => popup.addEventListener("click", mouseHandler));
 
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
-formEdit.addEventListener("submit", handleformEditSubmit);
-
-btnAddCard.addEventListener("click", () => doOpenPopup(cardPopup));
-formCard.addEventListener("submit", handleAddFormSubmit);
-
-function renderCard(card) {
-  const newCard = new Card(card, "#photo-card");
-  const cardElement = newCard.createCard();
-  photoCardContainer.prepend(cardElement);
-}
-
-initialCards.forEach(renderCard);
+cardsSection.renderItems();
