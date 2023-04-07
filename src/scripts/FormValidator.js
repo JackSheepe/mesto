@@ -1,15 +1,14 @@
 export default class FormValidator {
   constructor(data, formElement) {
-    (this._form = data.formSelector),
-      (this._input = data.inputSelector),
-      (this._submitBtn = data.submitButtonSelector),
-      (this._inactiveBtn = data.inactiveButtonClass),
-      (this._inputErrorClass = data.inputErrorClass),
-      (this._error = data.errorClass),
-      (this._formElement = formElement),
-      (this._buttonElement = this._formElement.querySelector(
-        data.submitButtonSelector
-      ));
+    this._inputSelector = data.inputSelector;
+    this._submitBtnSelector = data.submitButtonSelector;
+    this._inactiveBtnClass = data.inactiveButtonClass;
+    this._inputErrorClass = data.inputErrorClass;
+    this._errorClass = data.errorClass;
+    this._formElement = formElement;
+    this._buttonElement = this._formElement.querySelector(
+      data.submitButtonSelector
+    );
   }
 
   _showInputError(inputElement, errorMessage) {
@@ -18,7 +17,7 @@ export default class FormValidator {
     );
     inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add(this._error);
+    errorElement.classList.add(this._errorCLass);
   }
 
   _hideInputError(inputElement) {
@@ -39,20 +38,20 @@ export default class FormValidator {
   }
 
   enableSubmitButton() {
-    this._buttonElement.classList.remove(this._inactiveBtn);
+    this._buttonElement.classList.remove(this._inactiveBtnCLass);
     this._buttonElement.disabled = false;
   }
 
   disableSubmitButton() {
-    this._buttonElement.classList.add(this._inactiveBtn);
+    this._buttonElement.classList.add(this._inactiveBtnCLass);
     this._buttonElement.disabled = true;
   }
 
   _toggleButtonState(inputList) {
     if (this._hasInvalidInput(inputList)) {
-      this.disableSubmitButton(this._buttonElement);
+      this.disableSubmitButton();
     } else {
-      this.enableSubmitButton(this._buttonElement);
+      this.enableSubmitButton();
     }
   }
 
@@ -64,7 +63,7 @@ export default class FormValidator {
 
   _setEventListeners() {
     const inputList = Array.from(
-      this._formElement.querySelectorAll(this._input)
+      this._formElement.querySelectorAll(this._inputSelector)
     );
 
     // чтобы проверить состояние кнопки в самом начале
