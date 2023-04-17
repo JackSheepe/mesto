@@ -25,12 +25,14 @@ export default class Card {
     this._img.addEventListener("click", this._handleCardClick);
   }
 
-  createCard() {
+  createCard({ likes }) {
     const newCard = this._getTemplate();
     this._img = newCard.querySelector(".elements__image");
     newCard.querySelector(".elements__name").textContent = this._name;
     this._img.src = this._link;
     this._img.alt = this._name;
+    this._likes = newCard.querySelector(".elements__like-num");
+    this._likes.textContent = likes;
 
     this._addEventListeners(newCard);
 

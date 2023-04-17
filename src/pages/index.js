@@ -6,15 +6,27 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 import {
   objValidationClasses,
-  initialCards,
   btnEditProfile,
   btnAddCard,
 } from "../utils/constants.js";
 
-const user = new UserInfo(".profile__name", ".profile__bio");
+const user = new UserInfo(
+  ".profile__name",
+  ".profile__bio",
+  ".profile__avatar"
+);
 const userInfo = user.getUserInfo();
+
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-64",
+  headers: {
+    authorization: "d64a3265-70b5-488d-a026-a7476e12b035",
+    "Content-Type": "application/json",
+  },
+});
 
 const popupImg = new PopupWithImage("#image-popup");
 
@@ -28,7 +40,8 @@ function renderCard(section, obj, popupClass) {
     },
     "#photo-card"
   );
-  const cardElement = newCard.createCard();
+  console.log(obj.likes.length);
+  const cardElement = newCard.createCard({ likes: `${obj.likes.length}` });
   section.addItem(cardElement);
 }
 
@@ -79,14 +92,16 @@ formEditValidity.enableValidation();
 const formCardValidity = new FormValidator(objValidationClasses, formCard);
 formCardValidity.enableValidation();
 
-const cardsSection = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      renderCard(cardsSection, item, popupImg);
+api.getInitialCards().then((data) => {
+  const cardsSection = new Section(
+    {
+      items: data,
+      renderer: (item) => {
+        renderCard(cardsSection, item, popupImg);
+      },
     },
-  },
-  ".elements"
-);
+    ".elements"
+  );
 
-cardsSection.renderItems();
+  cardsSection.renderItems();
+});
