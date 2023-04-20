@@ -12,6 +12,7 @@ import {
   btnEditProfile,
   btnAddCard,
 } from "../utils/constants.js";
+import { data } from "autoprefixer";
 
 const user = new UserInfo(
   ".profile__name",
@@ -28,6 +29,13 @@ const api = new Api({
   },
 });
 
+api.getUserInfo().then((data) => {
+  user.setUserInfo({
+    name: data.name,
+    bio: data.about,
+  });
+});
+
 const popupImg = new PopupWithImage("#image-popup");
 
 function renderCard(section, obj, popupClass) {
@@ -40,7 +48,6 @@ function renderCard(section, obj, popupClass) {
     },
     "#photo-card"
   );
-  console.log(obj.likes.length);
   const cardElement = newCard.createCard({ likes: `${obj.likes.length}` });
   section.addItem(cardElement);
 }
@@ -54,6 +61,7 @@ const popupEdit = new PopupWithForm(
         name: values.name,
         bio: values.bio,
       });
+      api.editUserInfo({ name: values.name, bio: values.bio });
     },
   },
   "#edit-popup"
@@ -68,9 +76,10 @@ const popupCard = new PopupWithForm(
       const el = {
         name: values.name,
         link: values.link,
+        likes: [],
       };
-
       renderCard(cardsSection, el, popupImg);
+      api.postCard({ name: values.name, link: values.link });
     },
   },
   "#card-popup"
@@ -92,8 +101,10 @@ formEditValidity.enableValidation();
 const formCardValidity = new FormValidator(objValidationClasses, formCard);
 formCardValidity.enableValidation();
 
+let cardsSection;
+
 api.getInitialCards().then((data) => {
-  const cardsSection = new Section(
+  const newSection = new Section(
     {
       items: data,
       renderer: (item) => {
@@ -102,6 +113,8 @@ api.getInitialCards().then((data) => {
     },
     ".elements"
   );
+
+  cardsSection = newSection;
 
   cardsSection.renderItems();
 });
