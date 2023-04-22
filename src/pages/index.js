@@ -170,6 +170,7 @@ const popupDel = new PopupWithForm(
   {
     submitCallback: (value) => {
       api.deleteCard(value._id);
+      popupDel.close();
     },
   },
   "#delete-popup"
