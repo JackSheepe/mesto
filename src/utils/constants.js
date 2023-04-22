@@ -7,6 +7,7 @@ const imgPopup = document.querySelector("#image-popup");
 const btnPopupEditClose = document.querySelector("#edit-close-btn");
 const btnCardPopupClose = document.querySelector("#card-close-btn");
 const btnImgPopupClose = document.querySelector("#img-close-btn");
+const btnEditAvatar = document.querySelector(".profile__avatar");
 
 // Находим форму в DOM
 const formEdit = document.querySelector("#edit-form");
@@ -33,33 +34,6 @@ const objValidationClasses = {
   errorClass: "popup__form-text-error_active",
 };
 
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-
 export {
   btnEditProfile,
   btnAddCard,
@@ -80,5 +54,5 @@ export {
   profileBio,
   photoCardContainer,
   objValidationClasses,
-  initialCards,
+  btnEditAvatar,
 };

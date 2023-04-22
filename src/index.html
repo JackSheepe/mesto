@@ -16,11 +16,13 @@
     </header>
     <main>
       <section class="profile">
-        <img
-          src="<%=require('./images/avatar.png')%>"
-          alt="аватар профиля"
-          class="profile__avatar"
-        />
+        <div class="profile__avatar-container">
+          <img
+            src="<%=require('./images/avatar.png')%>"
+            alt="аватар профиля"
+            class="profile__avatar"
+          />
+        </div>
         <div class="profile__info">
           <div class="profile__name-wrapper">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -142,6 +144,74 @@
           <button
             class="btn popup__close-btn"
             id="card-close-btn"
+            type="button"
+            aria-label="Кнопка закрытия попапа"
+          ></button>
+        </form>
+      </div>
+    </div>
+    <div class="popup" id="avatar-popup">
+      <div class="popup__container">
+        <form
+          class="popup__form"
+          name="avatar-form"
+          id="avatar-form"
+          novalidate
+        >
+          <h2 class="popup__form-name">Обновить аватар</h2>
+          <div class="popup__form-texts">
+            <label class="popup__form-label">
+              <input
+                type="url"
+                id="link-field"
+                name="link"
+                class="popup__form-text"
+                value=""
+                placeholder="Ссылка на картинку"
+                required
+              />
+              <span class="popup__form-text-error" id="link-field-error"></span>
+            </label>
+          </div>
+          <button
+            type="submit"
+            value="Сохранить"
+            class="popup__submit-btn"
+            aria-label="Кнопка сохранить новый аватар"
+          >
+            Сохранить
+          </button>
+          <button
+            class="btn popup__close-btn"
+            id="card-close-btn"
+            type="button"
+            aria-label="Кнопка закрытия попапа"
+          ></button>
+        </form>
+      </div>
+    </div>
+    <div class="popup" id="delete-popup">
+      <div class="popup__container">
+        <form class="popup__form" name="del-form" id="del-form" novalidate>
+          <h2 class="popup__form-name popup__form-name_del">Вы уверены?</h2>
+          <input
+            type="text"
+            id="id-field"
+            name="_id"
+            class="popup__form-text popup__form-text_hidden"
+            value=""
+          />
+          <button
+            type="submit"
+            value="Удалить"
+            class="popup__submit-btn"
+            aria-label="Кнопка удалить попап"
+          >
+            Да
+          </button>
+          <button
+            class="btn popup__close-btn"
+            id="img-close-btn"
             type="button"
             aria-label="Кнопка закрытия попапа"
           ></button>

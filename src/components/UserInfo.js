@@ -13,8 +13,9 @@ export default class UserInfo {
     };
   }
 
-  setUserInfo({ name, bio }) {
+  setUserInfo({ name, bio, avatar }) {
     this._userNameEl.textContent = name;
     this._userInfoEl.textContent = bio;
+    this._userAvatarEl.src = avatar;
   }
 }
