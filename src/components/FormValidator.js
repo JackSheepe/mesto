@@ -17,7 +17,7 @@ export default class FormValidator {
     );
     inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add(this._errorCLass);
+    errorElement.classList.add(this._errorClass);
   }
 
   _hideInputError(inputElement) {
@@ -38,12 +38,12 @@ export default class FormValidator {
   }
 
   enableSubmitButton() {
-    this._buttonElement.classList.remove(this._inactiveBtnCLass);
+    this._buttonElement.classList.remove(this._inactiveBtnClass);
     this._buttonElement.disabled = false;
   }
 
   disableSubmitButton() {
-    this._buttonElement.classList.add(this._inactiveBtnCLass);
+    this._buttonElement.classList.add(this._inactiveBtnClass);
     this._buttonElement.disabled = true;
   }
 

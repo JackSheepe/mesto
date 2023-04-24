@@ -13,7 +13,12 @@ import {
   btnAddCard,
   btnEditAvatar,
 } from "../utils/constants.js";
-import { renderLoading, openPopup, openEditPopup } from "../utils/utils.js";
+import {
+  renderLoading,
+  openPopup,
+  openEditPopup,
+  openCardPopup,
+} from "../utils/utils.js";
 import { data } from "autoprefixer";
 
 const user = new UserInfo(
@@ -183,7 +188,9 @@ btnEditProfile.addEventListener("click", () =>
   openEditPopup(popupEdit, user, formEditValidity)
 );
 
-btnAddCard.addEventListener("click", () => openPopup(popupCard));
+btnAddCard.addEventListener("click", () =>
+  openCardPopup(popupCard, formCardValidity)
+);
 
 btnEditAvatar.addEventListener("click", () => openPopup(popupAvatar));
 

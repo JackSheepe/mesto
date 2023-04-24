@@ -16,3 +16,8 @@ export function openEditPopup(popup, user, formValidity) {
   popup.setInputValues(user.getUserInfo());
   formValidity.enableSubmitButton();
 }
+
+export function openCardPopup(popup, formValidity) {
+  openPopup(popup);
+  formValidity.disableSubmitButton();
+}
