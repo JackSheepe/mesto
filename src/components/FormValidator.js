@@ -29,6 +29,17 @@ export default class FormValidator {
     errorElement.textContent = "";
   }
 
+  _hideInputsErrors() {
+    this._formElement
+      .querySelectorAll(".popup__form-text-error")
+      .forEach((el) => {
+        el.textContent = "";
+      });
+    this._formElement.querySelectorAll(".popup__form-text").forEach((el) => {
+      el.classList.remove(this._inputErrorClass);
+    });
+  }
+
   _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
@@ -38,6 +49,7 @@ export default class FormValidator {
   }
 
   enableSubmitButton() {
+    this._hideInputsErrors();
     this._buttonElement.classList.remove(this._inactiveBtnClass);
     this._buttonElement.disabled = false;
   }

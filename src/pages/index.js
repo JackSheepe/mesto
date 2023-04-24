@@ -130,11 +130,6 @@ const popupCard = new PopupWithForm(
         .postCard({ name: values.name, link: values.link })
         .then((data) => {
           renderCard(cardsSection, data, popupImg, popupDel, initialUserData);
-          console.log(cardsSection);
-          console.log(data);
-          console.log(popupImg);
-          console.log(popupDel);
-          console.log(initialUserData);
         })
         .catch((err) => {
           console.log(err);
