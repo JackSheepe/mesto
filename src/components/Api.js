@@ -16,21 +16,13 @@ export default class Api {
   getInitialCards() {
     return fetch(`${this._options.baseUrl}/cards`, {
       headers: this._token,
-    })
-      .then((res) => this._getResponseData(res))
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
+    }).then((res) => this._getResponseData(res));
   }
 
   getUserInfo() {
     return fetch(`${this._options.baseUrl}/users/me`, {
       headers: this._token,
-    })
-      .then((res) => this._getResponseData(res))
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
+    }).then((res) => this._getResponseData(res));
   }
 
   editUserInfo({ name, bio }) {
@@ -41,11 +33,7 @@ export default class Api {
         name: name,
         about: bio,
       }),
-    })
-      .then((res) => this._getResponseData(res))
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
+    }).then((res) => this._getResponseData(res));
   }
 
   postCard({ name, link }) {
@@ -56,44 +44,28 @@ export default class Api {
         name: name,
         link: link,
       }),
-    })
-      .then((res) => this._getResponseData(res))
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
+    }).then((res) => this._getResponseData(res));
   }
 
   deleteCard(id) {
     return fetch(`${this._options.baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: this._token,
-    })
-      .then((res) => this._getResponseData(res))
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
+    }).then((res) => this._getResponseData(res));
   }
 
   likeCard(id) {
     return fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
       method: "PUT",
       headers: this._token,
-    })
-      .then((res) => this._getResponseData(res))
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
+    }).then((res) => this._getResponseData(res));
   }
 
   unlikeCard(id) {
     return fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
       method: "DELETE",
       headers: this._token,
-    })
-      .then((res) => this._getResponseData(res))
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
+    }).then((res) => this._getResponseData(res));
   }
 
   changeAvatar({ link }) {

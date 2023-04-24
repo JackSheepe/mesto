@@ -10,7 +10,6 @@ export default class Card {
     },
     photoCardTemplate
   ) {
-    this._allData = data;
     this._name = data.name;
     this._link = data.link;
     this._cardId = data._id;
@@ -43,7 +42,7 @@ export default class Card {
       }
     });
     this._delBtn.addEventListener("click", () =>
-      this._handleDeleteCard(this._allData)
+      this._handleDeleteCard(this._cardId, card)
     );
     this._img.addEventListener("click", this._handleCardClick);
   }

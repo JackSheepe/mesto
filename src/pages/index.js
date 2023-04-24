@@ -4,6 +4,7 @@ import FormValidator from "../components/FormValidator.js";
 import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupDelete from "../components/PopupDelete.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
@@ -52,6 +53,7 @@ api
   });
 
 const popupImg = new PopupWithImage("#image-popup");
+popupImg.setEventListeners();
 
 function renderCard(section, obj, imgPopup, delPopup, userData) {
   const newCard = new Card(
@@ -60,8 +62,8 @@ function renderCard(section, obj, imgPopup, delPopup, userData) {
       handleCardClick: () => {
         imgPopup.open({ data: obj });
       },
-      handleDeleteCard: (data) => {
-        delPopup.setInputValues(data);
+      handleDeleteCard: (id, card) => {
+        delPopup.setValues(card, id);
         delPopup.open();
       },
       handleLikeCard: (id) => {
@@ -106,18 +108,19 @@ const popupEdit = new PopupWithForm(
             bio: data.about,
             avatar: data.avatar,
           });
+          popupEdit.close();
         })
         .catch((err) => {
           console.log(err);
         })
         .finally(() => {
           renderLoading({ submitBtn: popupEdit.submitBtn }, false);
-          popupEdit.close();
         });
     },
   },
   "#edit-popup"
 );
+popupEdit.setEventListeners();
 const formEdit = popupEdit.form;
 
 const popupCard = new PopupWithForm(
@@ -130,18 +133,19 @@ const popupCard = new PopupWithForm(
         .postCard({ name: values.name, link: values.link })
         .then((data) => {
           renderCard(cardsSection, data, popupImg, popupDel, initialUserData);
+          popupCard.close();
         })
         .catch((err) => {
           console.log(err);
         })
         .finally(() => {
           renderLoading({ submitBtn: popupCard.submitBtn }, false);
-          popupCard.close();
         });
     },
   },
   "#card-popup"
 );
+popupCard.setEventListeners();
 const formCard = popupCard.form;
 
 const popupAvatar = new PopupWithForm(
@@ -158,18 +162,19 @@ const popupAvatar = new PopupWithForm(
             bio: data.about,
             avatar: data.avatar,
           });
+          popupAvatar.close();
         })
         .catch((err) => {
           console.log(err);
         })
         .finally(() => {
           renderLoading({ submitBtn: popupAvatar.submitBtn }, false);
-          popupAvatar.close();
         });
     },
   },
   "#avatar-popup"
 );
+popupAvatar.setEventListeners();
 const formAvatar = popupAvatar.form;
 
 const formEditValidity = new FormValidator(objValidationClasses, formEdit);
@@ -217,19 +222,23 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     console.log(err);
   });
 
-const popupDel = new PopupWithForm(
+const popupDel = new PopupDelete(
   {
-    submitCallback: (value) => {
+    submitCallback: (cardEl, cardId) => {
       api
-        .deleteCard(value._id)
+        .deleteCard(cardId)
         .then((data) => {
           console.log(data);
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          cardEl.remove();
         });
       popupDel.close();
     },
   },
   "#delete-popup"
 );
+popupDel.setEventListeners();
