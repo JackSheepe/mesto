@@ -1,20 +1,23 @@
 export default class Api {
   constructor(options) {
     this._options = options;
+    this._token = {
+      authorization: "d64a3265-70b5-488d-a026-a7476e12b035",
+    };
+  }
+
+  _getResponseData(res) {
+    if (!res.ok) {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+    return res.json();
   }
 
   getInitialCards() {
     return fetch(`${this._options.baseUrl}/cards`, {
-      headers: { authorization: "d64a3265-70b5-488d-a026-a7476e12b035" },
+      headers: this._token,
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then((res) => this._getResponseData(res))
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
       });
@@ -22,16 +25,9 @@ export default class Api {
 
   getUserInfo() {
     return fetch(`${this._options.baseUrl}/users/me`, {
-      headers: { authorization: "d64a3265-70b5-488d-a026-a7476e12b035" },
+      headers: this._token,
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then((res) => this._getResponseData(res))
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
       });
@@ -46,14 +42,7 @@ export default class Api {
         about: bio,
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then((res) => this._getResponseData(res))
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
       });
@@ -68,14 +57,7 @@ export default class Api {
         link: link,
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then((res) => this._getResponseData(res))
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
       });
@@ -84,16 +66,9 @@ export default class Api {
   deleteCard(id) {
     return fetch(`${this._options.baseUrl}/cards/${id}`, {
       method: "DELETE",
-      headers: { authorization: "d64a3265-70b5-488d-a026-a7476e12b035" },
+      headers: this._token,
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then((res) => this._getResponseData(res))
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
       });
@@ -102,16 +77,9 @@ export default class Api {
   likeCard(id) {
     return fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
       method: "PUT",
-      headers: { authorization: "d64a3265-70b5-488d-a026-a7476e12b035" },
+      headers: this._token,
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then((res) => this._getResponseData(res))
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
       });
@@ -120,16 +88,9 @@ export default class Api {
   unlikeCard(id) {
     return fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
       method: "DELETE",
-      headers: { authorization: "d64a3265-70b5-488d-a026-a7476e12b035" },
+      headers: this._token,
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then((res) => this._getResponseData(res))
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
       });
@@ -142,18 +103,7 @@ export default class Api {
       body: JSON.stringify({
         avatar: link,
       }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
+    }).then((res) => this._getResponseData(res));
   }
 
   // другие методы работы с API

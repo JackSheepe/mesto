@@ -41,6 +41,5 @@ export default class PopupWithForm extends Popup {
   close() {
     super.close();
     this.form.reset();
-    this.form.removeEventListener("submit", this._onSubmit);
   }
 }
