@@ -228,13 +228,11 @@ const popupDel = new PopupDelete(
       api
         .deleteCard(cardId)
         .then((data) => {
+          cardEl.remove();
           console.log(data);
         })
         .catch((err) => {
           console.log(err);
-        })
-        .finally(() => {
-          cardEl.remove();
         });
       popupDel.close();
     },
